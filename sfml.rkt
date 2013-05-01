@@ -1,12 +1,21 @@
 #lang racket
 
+(require racket/provide)
+#;
+(provide
+ (filtered-out
+  (lambda (name)
+    (if (or (regexp-match? #rx"sf.*" name)
+            (regexp-match? #rx"make-.*" name)
+            (eq? name "_sfEvent"))
+        name
+        #f))
+  (all-defined-out)))
+
+(provide (all-defined-out))
+
 (require ffi/unsafe
          ffi/unsafe/define)
-
-;;(define-ffi-definer define-sfaudio (ffi-lib "libcsfml-audio"))
-;;(define-ffi-definer define-sfgraphics (ffi-lib "libcsfml-graphics"))
-;;(define-ffi-definer define-sfnet (ffi-lib "libcsfml-network"))
-;;(define-ffi-definer define-sfsys (ffi-lib "libcsfml-system"))
 
 (define-ffi-definer define-sfwin (ffi-lib "libcsfml-window"))
 
@@ -265,6 +274,8 @@
                    _sfJoystickButtonEvent
                    _sfJoystickConnectEvent))
 
+(define (sfEvent-pointer) (_cpointer _sfEvent))
+
 ;;; Window/VideoMode.h
 (define-cstruct _sfVideoMode
   ([width _uint]
@@ -286,7 +297,7 @@
                                       sfResize = 2
                                       sfClose = 4
                                       sfFullscreen = 8
-                                      sfDefaultStyle = )))
+                                      sfDefaultStyle = 7)))
 
 (define-cstruct _sfContextSettings
   ([depthBits _uint]
@@ -296,7 +307,7 @@
    [minorVersion _uint]))
 
 (define-sfwin sfWindow_create
-  (_fun _sfVideoMode _bytes _uint32 _sfContextSettings-pointer ->
+  (_fun _sfVideoMode _bytes _windowStyles _sfContextSettings-pointer ->
         _sfWindow-pointer))
 
 (define-sfwin sfWindow_createUnicode
@@ -317,7 +328,10 @@
   (_fun _sfWindow-pointer -> _sfContextSettings))
 
 (define-sfwin sfWindow_pollEvent
-  (_fun _sfWindow-pointer (_ptr o _sfEvent) -> _bool))
+  (_fun _sfWindow-pointer
+        (event : (_ptr o _sfEvent))
+        -> (had-event? : _bool)
+        -> (values event had-event?)))
 
 (define-sfwin sfWindow_waitEvent
   (_fun _sfWindow-pointer (_ptr o _sfEvent) -> _bool))
