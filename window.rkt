@@ -1,21 +1,11 @@
 #lang racket
 
-(require racket/provide)
-#;
-(provide
- (filtered-out
-  (lambda (name)
-    (if (or (regexp-match? #rx"sf.*" name)
-            (regexp-match? #rx"make-.*" name)
-            (eq? name "_sfEvent"))
-        name
-        #f))
-  (all-defined-out)))
+(require ffi/unsafe
+         ffi/unsafe/define
+         "sfml-util.rkt")
 
 (provide (all-defined-out))
 
-(require ffi/unsafe
-         ffi/unsafe/define)
 
 (define-ffi-definer define-sfwin (ffi-lib "libcsfml-window"))
 
@@ -27,14 +17,10 @@
 (define _sfWindowHandle (_cpointer 'sfWindowHandle))
 
 ;;; Window/Context.h
-(define-sfwin sfContext_create
-  (_fun -> _sfContext-pointer))
-
-(define-sfwin sfContext_destroy
-  (_fun _sfContext-pointer -> _void))
-
-(define-sfwin sfContext_setActive
-  (_fun _sfContext-pointer _bool -> _void))
+(define-all-types define-sfwin sfContext
+  ([create (_fun -> _sfContext-pointer)]
+   [destroy (_fun _sfContext-pointer -> _void)]
+   [setActive (_fun _sfContext-pointer _bool -> _void)]))
 
 ;;; Window/Joystick.h
 (define _sfJoystickAxis
@@ -47,26 +33,17 @@
            sfJoystickPovX
            sfJoystickPovY)))
 
-(define-sfwin sfJoystick_isConnected
-  (_fun _uint -> _bool))
-
-(define-sfwin sfJoystick_getButtonCount
-  (_fun _uint -> _uint))
-
-(define-sfwin sfJoystick_hasAxis
-  (_fun _uint _sfJoystickAxis -> _bool))
-
-(define-sfwin sfJoystick_isButtonPressed
-  (_fun _uint _uint -> _bool))
-
-(define-sfwin sfJoystick_getAxisPosition
-  (_fun _uint _sfJoystickAxis -> _float))
-
-(define-sfwin sfJoystick_update (_fun -> _void))
+(define-all-types define-sfwin sfJoystick
+  ([isConnected (_fun _uint -> _bool)]
+   [getButtonCount (_fun _uint -> _uint)]
+   [hasAxis (_fun _uint _sfJoystickAxis -> _bool)]
+   [isButtonPressed (_fun _uint _uint -> _bool)]
+   [getAxisPosition (_fun _uint _sfJoystickAxis -> _float)]
+   [update (_fun -> _void)]))
 
 ;;; Window/Keyboard.h
 (define _sfKeyCode
-  (_enum '(sfKeyUnknown = 0
+  (_enum '(sfKeyUnknown = -1
                         sfKeyA
                         sfKeyB
                         sfKeyC
@@ -169,8 +146,7 @@
                         sfKeyPause
                         sfKeyCount)))
 
-(define-sfwin sfKeyboard_isKeyPressed
-  (_fun _sfKeyCode -> _bool))
+(define-sfwin sfKeyboard_isKeyPressed (_fun _sfKeyCode -> _bool))
 
 ;;; Window/Mouse.h
 (define _sfMouseButton
@@ -182,8 +158,7 @@
      sfMouseXButton2
      sfMouseButtonCount)))
 
-(define-sfwin sfMouse_isButtonPressed
-  (_fun _sfMouseButton -> _bool))
+(define-sfwin sfMouse_isButtonPressed (_fun _sfMouseButton -> _bool))
 
 #|
 (define-sfwin sfMouse_getPosition
@@ -282,22 +257,21 @@
    [height _uint]
    [bitsPerPixel _uint]))
 
-(define-sfwin sfVideoMode_getDesktopMode (_fun -> _sfVideoMode))
-
-(define-sfwin sfVideoMode_getFullscreenModes
-  (_fun (_ptr o _uint8) -> _sfVideoMode-pointer))
-
-(define-sfwin sfVideoMode_isValid
-  (_fun _sfVideoMode -> _bool))
+(define-all-types define-sfwin sfVideoMode
+  ([getDesktopMode (_fun -> _sfVideoMode)]
+   [getFullscreenModes (_fun (_ptr o _uint8) -> _sfVideoMode-pointer)]
+   [isValid (_fun _sfVideoMode -> _bool)]))
 
 ;;; Window/Window.h
 ;; TODO - encode this in a more mathematical way
-(define _windowStyles (_enum `(sfNone = 0
-                                      sfTitlebar = 1
-                                      sfResize = 2
-                                      sfClose = 4
-                                      sfFullscreen = 8
-                                      sfDefaultStyle = 7)))
+
+(define _windowStyles
+  (_enum `(sfNone = 0
+                  sfTitlebar = 1
+                  sfResize = 2
+                  sfClose = 4
+                  sfFullscreen = 8
+                  sfDefaultStyle = 7)))
 
 (define-cstruct _sfContextSettings
   ([depthBits _uint]
@@ -306,82 +280,103 @@
    [majorVersion _uint]
    [minorVersion _uint]))
 
-(define-sfwin sfWindow_create
-  (_fun _sfVideoMode _bytes _windowStyles _sfContextSettings-pointer ->
-        _sfWindow-pointer))
 
-(define-sfwin sfWindow_createUnicode
-  (_fun _sfVideoMode _string/utf-8 _uint32 _sfContextSettings-pointer
-        -> _sfWindow-pointer))
 
-(define-sfwin sfWindow_createFromHandle
-  (_fun _sfWindowHandle _sfContextSettings-pointer
-        -> _sfWindow-pointer))
+(define-all-types define-sfwin sfWindow
+  ([create
+    (_fun
+     _sfVideoMode
+     _bytes
+     _windowStyles
+     _sfContextSettings-pointer
+     -> _sfWindow-pointer)]
 
-(define-sfwin sfWindow_destroy (_fun _sfWindow-pointer -> _void))
+   [createUnicode
+    (_fun
+     _sfVideoMode
+     _string/utf-8
+     _uint32
+     _sfContextSettings-pointer
+     -> _sfWindow-pointer)]
 
-(define-sfwin sfWindow_close (_fun _sfWindow-pointer -> _void))
+   [createFromHandle
+    (_fun
+     _sfWindowHandle
+     _sfContextSettings-pointer
+     -> _sfWindow-pointer)]
 
-(define-sfwin sfWindow_isOpen (_fun _sfWindow-pointer -> _bool))
+   [destroy
+    (_fun _sfWindow-pointer -> _void)]
 
-(define-sfwin sfWindow_getSettings
-  (_fun _sfWindow-pointer -> _sfContextSettings))
+   [close
+    (_fun _sfWindow-pointer -> _void)]
 
-(define-sfwin sfWindow_pollEvent
-  (_fun _sfWindow-pointer
-        (event : (_ptr o _sfEvent))
-        -> (had-event? : _bool)
-        -> (values event had-event?)))
+   [isOpen
+    (_fun _sfWindow-pointer -> _bool)]
 
-(define-sfwin sfWindow_waitEvent
-  (_fun _sfWindow-pointer (_ptr o _sfEvent) -> _bool))
+   [getSettings
+    (_fun _sfWindow-pointer -> _sfContextSettings)]
 
-#|
-(define-sfwin sfWindow_getPosition
-  (_fun _sfWindow-pointer -> sfVector2i))
+   [pollEvent
+    (_fun
+     _sfWindow-pointer
+     (event : (_ptr o _sfEvent))
+     -> (had-event? : _bool)
+     -> (values event had-event?))]
 
-(define-sfwin sfWindow_setPosition
-  (_fun _sfWindow-pointer _sfVector2i -> _void))
+   [waitEvent
+    (_fun _sfWindow-pointer (_ptr o _sfEvent) -> _bool)]
 
-(define-sfwin sfWindow_getSize
-  (_fun _sfWindow-pointer -> sfVector2u))
 
-(define-sfwin sfWindow_setSize
-  (_fun _sfWindow-pointer _sfVector2u -> _void))
-|#
+   [setTitle
+    (_fun _sfWindow-pointer _bytes -> _void)]
 
-(define-sfwin sfWindow_setTitle
-  (_fun _sfWindow-pointer _bytes -> _void))
+   [setUnicodeTitle
+    (_fun _sfWindow-pointer _string/utf-8 -> _void)]
 
-(define-sfwin sfWindow_setUnicodeTitle
-  (_fun _sfWindow-pointer _string/utf-8 -> _void))
+   [setIcon
+    (_fun _sfWindow-pointer _uint _uint (_ptr i _uint8)
+          -> _void)]
 
-(define-sfwin sfWindow_setIcon
-  (_fun _sfWindow-pointer _uint _uint (_ptr i _uint8)
-        -> _void))
+   [setVisible
+    (_fun _sfWindow-pointer _bool -> _void)]
 
-(define-sfwin sfWindow_setVisible
-  (_fun _sfWindow-pointer _bool -> _void))
+   [setMouseCursorVisible
+    (_fun _sfWindow-pointer _bool -> _void)]
 
-(define-sfwin sfWindow_setMouseCursorVisible
-  (_fun _sfWindow-pointer _bool -> _void))
+   [setVerticalSyncEnabled
+    (_fun _sfWindow-pointer _bool -> _void)]
 
-(define-sfwin sfWindow_setVerticalSyncEnabled
-  (_fun _sfWindow-pointer _bool -> _void))
+   [setKeyRepeatEnabled
+    (_fun _sfWindow-pointer _bool -> _void)]
 
-(define-sfwin sfWindow_setKeyRepeatEnabled
-  (_fun _sfWindow-pointer _bool -> _void))
+   [setActive
+    (_fun _sfWindow-pointer _bool -> _void)]
 
-(define-sfwin sfWindow_setActive
-  (_fun _sfWindow-pointer _bool -> _void))
+   [display
+    (_fun _sfWindow-pointer -> _void)]
 
-(define-sfwin sfWindow_display (_fun _sfWindow-pointer -> _void))
+   [setFramerateLimit
+    (_fun _sfWindow-pointer _uint -> _void)]
 
-(define-sfwin sfWindow_setFramerateLimit
-  (_fun _sfWindow-pointer _uint -> _void))
+   [setJoystickThreshold
+    (_fun _sfWindow-pointer _float -> _void)]
 
-(define-sfwin sfWindow_setJoystickThreshold
-  (_fun _sfWindow-pointer _float -> _void))
+   [getSystemHandle
+    (_fun _sfWindow-pointer -> _sfWindowHandle)]
 
-(define-sfwin sfWindow_getSystemHandle
-  (_fun _sfWindow-pointer -> _sfWindowHandle))
+   #;
+   [getPosition
+    (_fun _sfWindow-pointer -> sfVector2i)]
+
+   #;
+   [setPosition
+    (_fun _sfWindow-pointer _sfVector2i -> _void)]
+
+   #;
+   [getSize
+    (_fun _sfWindow-pointer -> sfVector2u)]
+
+   #;
+   [setSize
+    (_fun _sfWindow-pointer _sfVector2u -> _void)]))

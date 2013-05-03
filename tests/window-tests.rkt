@@ -6,7 +6,7 @@
 ;;; nature of the code, this file should contain functions that can be
 ;;; called from an interpretor and manually verified.
 
-(require (file "../sfml.rkt")
+(require (file "../window.rkt")
          ffi/unsafe)
 (provide (all-defined-out))
 
@@ -32,8 +32,12 @@
         (let event-loop ()
           (define-values (event had-event?) (sfWindow_pollEvent w))
           (when had-event?
-            (when (eq? (ptr-ref event _sfEventType) 'sfEvtClosed)
-              (sfWindow_close w))
+            (let ((event-type (ptr-ref event _sfEventType)))
+              (cond [(eq? 'sfEvtClosed event-type)
+                     (sfWindow_close w)]
+                    [(eq? 'sfEvtKeyPressed event-type)
+                     (let ((key-evt (ptr-ref event _sfKeyEvent)))
+                       (displayln (sfKeyEvent-code key-evt)))]))
             (event-loop)))
         (open-loop))))
   (test-window-basic event-loop))
