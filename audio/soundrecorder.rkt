@@ -6,15 +6,6 @@
  "../sfml-util.rkt"
  "defaudio.rkt"
  "types.rkt")
-#;
-(define _sfSoundRecorderStartCallback
-  (_cprocedure (list (_ptr i _void)) _bool))
-#;
-(define _sfSoundRecorderProcessCallback
-  (_cprocedure (list (_ptr i _int16) _uint (_ptr i _void)) _bool))
-#;
-(define _sfSoundRecorderStopCallback
-  (_cprocedure (list (_ptr i _void)) _bool))
 
 (define _sfSoundRecorderStartCallback
   (_fun (_ptr i _void) -> _bool))

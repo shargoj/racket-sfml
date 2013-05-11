@@ -4,6 +4,8 @@
 (require
  ffi/unsafe
  "../sfml-util.rkt"
+ "../system/time.rkt"
+ "../system/vector3.rkt"
  "defaudio.rkt"
  "types.rkt"
  "soundstatus.rkt")
@@ -23,17 +25,15 @@
    [getStatus (_fun _sfSound-pointer -> _sfSoundStatus)]
    [setPitch (_fun _sfSound-pointer _float -> _void)]
    [setVolume (_fun _sfSound-pointer _float -> _void)]
-   #;[setPosition (_fun _sfSound-pointer _sfVector3f -> _void)]
+   [setPosition (_fun _sfSound-pointer _sfVector3f -> _void)]
    [setRelativeToListener (_fun _sfSound-pointer _bool -> _void)]
    [setMinDistance (_fun _sfSound-pointer _float -> _void)]
    [setAttenuation (_fun _sfSound-pointer _float -> _void)]
-   #;
    [setPlayingOffset (_fun _sfSound-pointer _sfTime -> _void)]
    [getPitch (_fun _sfSound-pointer -> _float)]
    [getVolume (_fun _sfSound-pointer -> _float)]
-   #;[getPosition (_fun _sfSound-pointer -> _sfVector3f)]
+   [getPosition (_fun _sfSound-pointer -> _sfVector3f)]
    [isRelativeToListener (_fun _sfSound-pointer -> _bool)]
    [getMinDistance (_fun _sfSound-pointer -> _float)]
    [getAttenuation (_fun _sfSound-pointer -> _float)]
-   #;
    [getPlayingOffset (_fun _sfSound-pointer -> _sfTime)]))

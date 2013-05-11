@@ -12,7 +12,7 @@
    [destroy (_fun _sfSoundBufferRecorder-pointer -> _void)]
    [start (_fun _sfSoundBufferRecorder-pointer _uint -> _void)]
    [stop (_fun _sfSoundBufferRecorder-pointer -> _void)]
-   [_getSampleRate
+   [getSampleRate
     (_fun _sfSoundBufferRecorder-pointer -> _uint)]
    [getBuffer
     (_fun

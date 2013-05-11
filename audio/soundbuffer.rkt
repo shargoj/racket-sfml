@@ -4,6 +4,8 @@
 (require
  ffi/unsafe
  "../sfml-util.rkt"
+ "../system/inputstream.rkt"
+ "../system/time.rkt"
  "defaudio.rkt"
  "types.rkt")
 
@@ -11,7 +13,6 @@
   ([createFromFile (_fun _bytes -> _sfSoundBuffer-pointer)]
    [createFromMemory
     (_fun (_ptr i _void) _uint -> _sfSoundBuffer-pointer)]
-   #;
    [createFromStream
     (_fun _sfInputStream-pointer -> _sfSoundBuffer-pointer)]
    [createFromSamples
@@ -30,5 +31,4 @@
     (_fun _sfSoundBuffer-pointer -> _uint)]
    [getChannelCount
     (_fun _sfSoundBuffer-pointer -> _uint)]
-   #;
    [getDuration (_fun _sfSoundBuffer-pointer -> _sfTime)]))
