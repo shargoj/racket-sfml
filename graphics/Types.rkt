@@ -1,0 +1,20 @@
+#lang racket
+
+(provide (all-defined-out))
+(require ffi/unsafe)
+
+(define _sfCircleShape-pointer (_cpointer 'sfCircleShape))
+(define _sfConvexShape-pointer (_cpointer 'sfConvexShape))
+(define _sfFont-pointer (_cpointer 'sfFont))
+(define _sfImage-pointer (_cpointer 'sfImage))
+(define _sfShader-pointer (_cpointer 'sfShader))
+(define _sfRectangleShape-pointer (_cpointer 'sfRectangleShape))
+(define _sfRenderTexture-pointer (_cpointer 'sfRenderTexture))
+(define _sfRenderWindow-pointer (_cpointer 'sfRenderWindow))
+(define _sfShape-pointer (_cpointer 'sfShape))
+(define _sfSprite-pointer (_cpointer 'sfSprite))
+(define _sfText-pointer (_cpointer 'sfText))
+(define _sfTexture-pointer (_cpointer 'sfTexture))
+(define _sfTransformable-pointer (_cpointer 'sfTransformable))
+(define _sfVertexArray-pointer (_cpointer 'sfVertexArray))
+(define _sfView-pointer (_cpointer 'sfView))
