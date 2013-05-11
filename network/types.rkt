@@ -1,0 +1,29 @@
+#lang racket
+
+(provide (all-defined-out))
+(require ffi/unsafe)
+
+(define _sfFtpDirectoryResponse-pointer
+  (_cpointer 'sfFtpDirectoryResponse))
+(define _sfFtpListingResponse-pointer
+  (_cpointer 'sfFtpListingResponse))
+(define _sfFtpResponse-pointer
+  (_cpointer 'sfFtpResponse))
+(define _sfFtp-pointer
+  (_cpointer 'sfFtp))
+(define _sfHttpRequest-pointer
+  (_cpointer 'sfHttpRequest))
+(define _sfHttpResponse-pointer
+  (_cpointer 'sfHttpResponse))
+(define _sfHttp-pointer
+  (_cpointer 'sfHttp))
+(define _sfPacket-pointer
+  (_cpointer 'sfPacket))
+(define _sfSocketSelector-pointer
+  (_cpointer 'sfSocketSelector))
+(define _sfTcpListener-pointer
+  (_cpointer 'sfTcpListener))
+(define _sfTcpSocket-pointer
+  (_cpointer 'sfTcpSocket))
+(define _sfUdpSocket-pointer
+  (_cpointer 'sfUdpSocket))
