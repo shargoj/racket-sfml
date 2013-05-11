@@ -19,7 +19,8 @@
                               (string-append
                                (symbol->string (syntax-e #'prefix))
                                "_"
-                               (symbol->string (syntax-e name))))))
+                               (symbol->string (syntax-e name))))
+                             stx))
             (syntax->list #'(funcname ...)))])
        #`(begin
            (deffun newname type) ...))]))
