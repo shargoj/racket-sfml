@@ -325,7 +325,11 @@
      -> (values event had-event?))]
 
    [waitEvent
-    (_fun _sfWindow-pointer (_ptr o _sfEvent) -> _bool)]
+    (_fun
+     _sfWindow-pointer
+     (event : (_ptr o _sfEvent))
+     -> (had-event? : _bool)
+     -> (values event had-event?))]
 
 
    [setTitle
