@@ -2,8 +2,8 @@
 
 (provide (all-defined-out))
 (require ffi/unsafe
-         (file "../sfml-util.rkt")
-         (file "defgfx.rkt"))
+         "../sfml-util.rkt"
+         "defgfx.rkt")
 
 (define-cstruct _sfFloatRect
   ([left _float]

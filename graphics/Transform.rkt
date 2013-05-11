@@ -3,11 +3,11 @@
 (provide (all-defined-out))
 (require
  ffi/unsafe
- ffi/unsafe/define
- "defgfx.rkt"
  "../sfml-util.rkt"
+ "../system/vector2.rkt"
  "Types.rkt"
- "Rect.rkt")
+ "Rect.rkt"
+ "defgfx.rkt")
 
 (define-cstruct _sfTransform
   ([matrix (_array _float 9)]))
@@ -22,7 +22,6 @@
    ; TODO: make this just return a matrix?
    [getMatrix (_fun _sfTransform-pointer (_ptr io _float) -> _void)]
    [getInverse (_fun _sfTransform-pointer -> _sfTransform)]
-   #;
    [transformPoint
     (_fun _sfTransform-pointer _sfVector2f -> _sfVector2f)]
    [transformRect

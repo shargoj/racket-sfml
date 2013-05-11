@@ -4,10 +4,12 @@
 (require
  ffi/unsafe
  "../sfml-util.rkt"
+ "../system/inputstream.rkt"
+ "../system/vector2.rkt"
+ "../window/types.rkt"
  "defgfx.rkt"
  "Types.rkt"
- "Rect.rkt"
- "../window.rkt")
+ "Rect.rkt")
 
 (define-all-types defgfx sfTexture
   ([create (_fun _uint _uint -> _sfTexture-pointer)]
@@ -19,7 +21,6 @@
      _uint
      (_ptr i _sfIntRect)
      -> _sfTexture-pointer)]
-   #;
    [createFromStream
     (_fun
      _sfInputStream-pointer
@@ -32,7 +33,7 @@
      -> _sfTexture-pointer)]
    [copy (_fun _sfTexture-pointer -> _sfTexture-pointer)]
    [destroy (_fun _sfTexture-pointer -> _void)]
-   ;[getSize (_fun _sfTexture-pointer -> _sfVector2u)]
+   [getSize (_fun _sfTexture-pointer -> _sfVector2u)]
    [copyToImage (_fun _sfTexture-pointer -> _sfImage-pointer)]
    [updateFromPixels
     (_fun

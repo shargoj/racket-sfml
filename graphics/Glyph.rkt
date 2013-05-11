@@ -9,5 +9,4 @@
 (define-cstruct _sfGlyph
   ([advance _int]
    [bounds _sfIntRect]
-   [textureRect _sfIntRect]
-   ))
+   [textureRect _sfIntRect]))

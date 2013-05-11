@@ -2,7 +2,11 @@
 
 (provide (all-defined-out))
 (require ffi/unsafe
-         "../window.rkt"
+         "../window/videomode.rkt"
+         "../window/windowhandle.rkt"
+         "../window/event.rkt"
+         "../window/window.rkt"
+         "../system/vector2.rkt"
          "../sfml-util.rkt"
          "defgfx.rkt"
          "Types.rkt"
@@ -50,13 +54,13 @@
      (event : (_ptr o _sfEvent))
      -> (had-event? : _bool)
      -> (values event had-event?))]
-   #;[getPosition
+   [getPosition
     (_fun _sfRenderWindow-pointer -> _sfVector2i)]
-   #;[setPosition
+   [setPosition
     (_fun _sfRenderWindow-pointer _sfVector2i -> _void)]
-   #;[getSize
+   [getSize
     (_fun _sfRenderWindow-pointer -> _sfVector2u)]
-   #;[setSize
+   [setSize
     (_fun _sfRenderWindow-pointer _sfVector2u -> _void)]
    [setTitle
     (_fun _sfRenderWindow-pointer _bytes -> _void)]
@@ -96,14 +100,12 @@
     (_fun _sfRenderWindow-pointer -> _sfView-pointer)]
    [getViewport
     (_fun _sfRenderWindow-pointer _sfView-pointer -> _sfIntRect)]
-   #;
    [mapPixelToCoords
     (_fun
      _sfRenderWindow-pointer
      _sfVector2i
      _sfView-pointer
      -> _sfVector2f)]
-   #;
    [mapCoordsToPixel
     (_fun
      _sfRenderWindow-pointer
@@ -170,9 +172,7 @@
     (_fun _sfRenderWindow-pointer -> _sfImage-pointer)]))
 
 (define-all-types defgfx sfMouse
-  (#;
-   [getPositionRenderWindow
+  ([getPositionRenderWindow
     (_fun _sfRenderWindow-pointer -> _sfVector2i)]
-   #;
    [setPositionRenderWindow
     (_fun _sfVector2i _sfRenderWindow-pointer -> _void)]))

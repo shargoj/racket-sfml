@@ -7,4 +7,5 @@
          "shape-interface.rkt"
          "Types.rkt")
 
-(define-all-types/shape defgfx sfCircleShape _sfRectangleShape-pointer)
+(define-all-types/shape defgfx sfCircleShape
+  _sfRectangleShape-pointer)

@@ -3,7 +3,9 @@
 (provide define-all-types/shape)
 (require ffi/unsafe
          "../sfml-util.rkt"
+         "../system/vector2.rkt"
          "defgfx.rkt"
+         "Transform.rkt"
          "Types.rkt"
          "Rect.rkt"
          "Color.rkt")
@@ -15,19 +17,19 @@
        ([create (_fun -> pointer-type)]
         [copy (_fun pointer-type -> pointer-type)]
         [destroy (_fun pointer-type -> _void)]
-        #;[setPosition (_fun pointer-type _sfVector2f -> _void)]
+        [setPosition (_fun pointer-type _sfVector2f -> _void)]
         [setRotation (_fun pointer-type _float -> _void)]
-        #;[setScale (_fun pointer-type _sfVector2f -> _void)]
-        #;[setOrigin (_fun pointer-type _sfVector2f -> _void)]
-        #;[getPosition (_fun pointer-type -> _sfVector2f)]
-        #;[getRotation (_fun pointer-type -> _float)]
-        #;[getScale (_fun pointer-type -> _sfVector2f)]
-        #;[getOrigin (_fun pointer-type -> _sfVector2f)]
-        #;[move (_fun pointer-type _sfVector2f -> _void)]
-        #;[rotate (_fun pointer-type _float -> _void)]
-        #;[scale (_fun pointer-type _sfVector2f -> _void)]
-        #;[getTransform (_fun pointer-type -> _sfTransform)]
-        #;[getInverseTransform (_fun pointer-type -> _sfTransform)]
+        [setScale (_fun pointer-type _sfVector2f -> _void)]
+        [setOrigin (_fun pointer-type _sfVector2f -> _void)]
+        [getPosition (_fun pointer-type -> _sfVector2f)]
+        [getRotation (_fun pointer-type -> _float)]
+        [getScale (_fun pointer-type -> _sfVector2f)]
+        [getOrigin (_fun pointer-type -> _sfVector2f)]
+        [move (_fun pointer-type _sfVector2f -> _void)]
+        [rotate (_fun pointer-type _float -> _void)]
+        [scale (_fun pointer-type _sfVector2f -> _void)]
+        [getTransform (_fun pointer-type -> _sfTransform)]
+        [getInverseTransform (_fun pointer-type -> _sfTransform)]
         [setTexture
          (_fun pointer-type _sfTexture-pointer _bool -> _void)]
         [setTextureRect (_fun pointer-type _sfIntRect -> _void)]
@@ -40,7 +42,7 @@
         [getOutlineColor (_fun pointer-type -> _sfColor)]
         [getOutlineThickness (_fun pointer-type -> _float)]
         [getPointCount (_fun pointer-type -> _uint)]
-        #;[getPoint (_fun pointer-type _uint -> _sfVector2f)]
+        [getPoint (_fun pointer-type _uint -> _sfVector2f)]
         [setRadius (_fun pointer-type _float -> _void)]
         [getRadius (_fun pointer-type -> _float)]
         [setPointCount (_fun pointer-type _uint -> _void)]

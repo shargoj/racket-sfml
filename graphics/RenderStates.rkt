@@ -3,10 +3,11 @@
 (provide (all-defined-out))
 (require ffi/unsafe
          "BlendMode.rkt"
+         "Transform.rkt"
          "Types.rkt")
 
 (define-cstruct _sfRenderStates
   ([blendMode _sfBlendMode]
-   #;[transform _sfTransform]
+   [transform _sfTransform]
    [texture _sfTexture-pointer]
    [shader _sfShader-pointer]))
