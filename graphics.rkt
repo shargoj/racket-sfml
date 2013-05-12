@@ -1,0 +1,61 @@
+#lang racket
+
+(define graphics-packages
+  '())
+
+(require
+ "graphics/blendmode.rkt"
+ "graphics/circleshape.rkt"
+ "graphics/color.rkt"
+ "graphics/convexshape.rkt"
+ "graphics/defgfx.rkt"
+ "graphics/font.rkt"
+ "graphics/glyph.rkt"
+ "graphics/image.rkt"
+ "graphics/primitivetype.rkt"
+ "graphics/rect.rkt"
+ "graphics/rectangleshape.rkt"
+ "graphics/renderstates.rkt"
+ "graphics/rendertexture.rkt"
+ "graphics/renderwindow.rkt"
+ "graphics/shader.rkt"
+ "graphics/shape-interface.rkt"
+ ;"graphics/shape.rkt"
+ "graphics/sprite.rkt"
+ "graphics/text.rkt"
+ "graphics/texture.rkt"
+ "graphics/transform.rkt"
+ "graphics/transformable.rkt"
+ "graphics/types.rkt"
+ "graphics/vertex.rkt"
+ "graphics/vertexarray.rkt"
+ "graphics/view.rkt")
+
+(provide
+ (all-from-out
+  "graphics/blendmode.rkt"
+    "graphics/circleshape.rkt"
+    "graphics/color.rkt"
+    "graphics/convexshape.rkt"
+    "graphics/defgfx.rkt"
+    "graphics/font.rkt"
+    "graphics/glyph.rkt"
+    "graphics/image.rkt"
+    "graphics/primitivetype.rkt"
+    "graphics/rect.rkt"
+    "graphics/rectangleshape.rkt"
+    "graphics/renderstates.rkt"
+    "graphics/rendertexture.rkt"
+    "graphics/renderwindow.rkt"
+    "graphics/shader.rkt"
+    "graphics/shape-interface.rkt"
+    ;"graphics/shape.rkt"
+    "graphics/sprite.rkt"
+    "graphics/text.rkt"
+    "graphics/texture.rkt"
+    "graphics/transform.rkt"
+    "graphics/transformable.rkt"
+    "graphics/types.rkt"
+    "graphics/vertex.rkt"
+    "graphics/vertexarray.rkt"
+    "graphics/view.rkt"))
