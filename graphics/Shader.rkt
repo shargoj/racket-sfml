@@ -7,9 +7,9 @@
          "../system/vector2.rkt"
          "../system/vector3.rkt"
          "defgfx.rkt"
-         "Transform.rkt"
-         "Types.rkt"
-         "Color.rkt")
+         "transform.rkt"
+         "types.rkt"
+         "color.rkt")
 
 (define-all-types defgfx sfShader
   ([createFromFile (_fun _bytes _bytes -> _sfShader-pointer)]

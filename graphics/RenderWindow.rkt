@@ -9,10 +9,10 @@
          "../system/vector2.rkt"
          "../sfml-util.rkt"
          "defgfx.rkt"
-         "Types.rkt"
-         "Color.rkt"
-         "Rect.rkt"
-         "RenderStates.rkt")
+         "types.rkt"
+         "color.rkt"
+         "rect.rkt"
+         "renderstates.rkt")
 
 (define-all-types defgfx sfRenderWindow
   ([create

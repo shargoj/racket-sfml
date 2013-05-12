@@ -2,9 +2,9 @@
 
 (provide (all-defined-out))
 (require ffi/unsafe
-         "BlendMode.rkt"
-         "Transform.rkt"
-         "Types.rkt")
+         "blendmode.rkt"
+         "transform.rkt"
+         "types.rkt")
 
 (define-cstruct _sfRenderStates
   ([blendMode _sfBlendMode]

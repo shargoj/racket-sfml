@@ -6,12 +6,12 @@
  "../sfml-util.rkt"
  "../system/vector2.rkt"
  "defgfx.rkt"
- "Color.rkt"
- "Rect.rkt"
- "RenderStates.rkt"
- "PrimitiveType.rkt"
- "Vertex.rkt"
- "Types.rkt")
+ "color.rkt"
+ "rect.rkt"
+ "renderstates.rkt"
+ "primitivetype.rkt"
+ "vertex.rkt"
+ "types.rkt")
 
 (define-all-types defgfx sfRenderTexture
   ([create (_fun _uint _uint _bool -> _sfRenderTexture-pointer)]

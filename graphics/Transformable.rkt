@@ -6,8 +6,8 @@
  "../sfml-util.rkt"
  "../system/vector2.rkt"
  "defgfx.rkt"
- "Types.rkt"
- "Transform.rkt")
+ "types.rkt"
+ "transform.rkt")
 
 (define-all-types defgfx sfTransformable
   ([create (_fun -> _sfTransformable-pointer)]

@@ -6,10 +6,10 @@
  "defgfx.rkt"
  "../sfml-util.rkt"
  "../system/vector2.rkt"
- "Color.rkt"
- "Rect.rkt"
- "Transform.rkt"
- "Types.rkt")
+ "color.rkt"
+ "rect.rkt"
+ "transform.rkt"
+ "types.rkt")
 
 (define-all-types defgfx sfSprite
   ([create (_fun -> _sfSprite-pointer)]

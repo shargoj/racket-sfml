@@ -6,9 +6,9 @@
          "../system/inputstream.rkt"
          "../system/vector2.rkt"
          "defgfx.rkt"
-         "Types.rkt"
-         "Color.rkt"
-         "Rect.rkt")
+         "types.rkt"
+         "color.rkt"
+         "rect.rkt")
 
 (define-all-types defgfx sfImage
   ([create (_fun _uint _uint -> _sfImage-pointer)]

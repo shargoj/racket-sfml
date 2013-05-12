@@ -6,8 +6,8 @@
  "../sfml-util.rkt"
  "../system/vector2.rkt"
  "defgfx.rkt"
- "Types.rkt"
- "Rect.rkt")
+ "types.rkt"
+ "rect.rkt")
 
 (define-all-types defgfx sfView
   ([create (_fun -> _sfView-pointer)]

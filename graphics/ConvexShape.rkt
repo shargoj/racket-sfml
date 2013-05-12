@@ -4,6 +4,6 @@
 (require ffi/unsafe
          (file "defgfx.rkt")
          "shape-interface.rkt"
-         "Types.rkt")
+         "types.rkt")
 
 (define-all-types/shape defgfx sfCircleShape _sfConvexShape-pointer)

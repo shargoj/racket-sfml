@@ -4,7 +4,7 @@
 (require
  ffi/unsafe
  "../system/vector2.rkt"
- "Color.rkt")
+ "color.rkt")
 
 (define-cstruct _sfVertex
   ([position _sfVector2f]

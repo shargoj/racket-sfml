@@ -4,10 +4,10 @@
 (require ffi/unsafe
          "../sfml-util.rkt"
          "defgfx.rkt"
-         "Types.rkt"
-         "Rect.rkt"
-         "PrimitiveType.rkt"
-         "Vertex.rkt")
+         "types.rkt"
+         "rect.rkt"
+         "primitivetype.rkt"
+         "vertex.rkt")
 
 (define-all-types defgfx sfVertexArray
   ([create (_fun -> _sfVertexArray-pointer)]

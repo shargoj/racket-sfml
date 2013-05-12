@@ -5,7 +5,7 @@
          "../sfml-util.rkt"
          "defgfx.rkt"
          "shape-interface.rkt"
-         "Types.rkt")
+         "types.rkt")
 
 (define-all-types/shape defgfx sfCircleShape
   _sfRectangleShape-pointer)

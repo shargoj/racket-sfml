@@ -4,7 +4,7 @@
 (require ffi/unsafe
          "../sfml-util.rkt"
          "defgfx.rkt"
-         "Rect.rkt")
+         "rect.rkt")
 
 (define-cstruct _sfGlyph
   ([advance _int]

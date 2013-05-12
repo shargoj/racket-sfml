@@ -5,10 +5,10 @@
  ffi/unsafe
  "../sfml-util.rkt"
  "../system/vector2.rkt"
- "Color.rkt"
- "Transform.rkt"
- "Types.rkt"
- "Rect.rkt"
+ "color.rkt"
+ "transform.rkt"
+ "types.rkt"
+ "rect.rkt"
  "defgfx.rkt")
 
 (define _sfTextStyle

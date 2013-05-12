@@ -5,9 +5,9 @@
          "../sfml-util.rkt"
          "../system/inputstream.rkt"
          "defgfx.rkt"
-         "Types.rkt"
-         "Glyph.rkt"
-         "Rect.rkt")
+         "types.rkt"
+         "glyph.rkt"
+         "rect.rkt")
 
 (define-all-types defgfx sfFont
   [[createFromFile (_fun _bytes -> _sfFont-pointer)]

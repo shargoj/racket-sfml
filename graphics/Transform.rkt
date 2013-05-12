@@ -5,8 +5,8 @@
  ffi/unsafe
  "../sfml-util.rkt"
  "../system/vector2.rkt"
- "Types.rkt"
- "Rect.rkt"
+ "types.rkt"
+ "rect.rkt"
  "defgfx.rkt")
 
 (define-cstruct _sfTransform

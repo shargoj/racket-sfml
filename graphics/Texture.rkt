@@ -8,8 +8,8 @@
  "../system/vector2.rkt"
  "../window/types.rkt"
  "defgfx.rkt"
- "Types.rkt"
- "Rect.rkt")
+ "types.rkt"
+ "rect.rkt")
 
 (define-all-types defgfx sfTexture
   ([create (_fun _uint _uint -> _sfTexture-pointer)]

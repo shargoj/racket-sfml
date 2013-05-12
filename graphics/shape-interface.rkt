@@ -5,10 +5,10 @@
          "../sfml-util.rkt"
          "../system/vector2.rkt"
          "defgfx.rkt"
-         "Transform.rkt"
-         "Types.rkt"
-         "Rect.rkt"
-         "Color.rkt")
+         "transform.rkt"
+         "types.rkt"
+         "rect.rkt"
+         "color.rkt")
 
 (define-syntax define-all-types/shape
   (syntax-rules ()
